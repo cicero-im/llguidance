@@ -14,10 +14,10 @@ import os
 import re
 import random
 import json
+from security import safe_command
 
 def run_command(command, input_data):
-    process = subprocess.Popen(
-        command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE
+    process = safe_command.run(subprocess.Popen, command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE
     )
     stdout, stderr = process.communicate(input=input_data)
     return stdout, stderr
