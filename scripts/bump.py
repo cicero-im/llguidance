@@ -5,6 +5,7 @@ import subprocess
 import sys
 import os
 from datetime import datetime
+from security import safe_command
 
 auto_commit = ["CHANGELOG.md"]
 
@@ -43,7 +44,7 @@ def update_version_in_file(file_path, new_version):
 
 
 def check_in_and_tag(version):
-    subprocess.run(["git", "add", pyproject_path] +
+    safe_command.run(subprocess.run, ["git", "add", pyproject_path] +
                    [p + "/Cargo.toml"
                     for p in cargo_paths] + ["Cargo.lock"] + auto_commit,
                    check=True)
