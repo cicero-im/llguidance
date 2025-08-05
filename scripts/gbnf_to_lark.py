@@ -6,7 +6,8 @@
 import os
 import subprocess
 import sys
+from security import safe_command
 
 p = os.path.join(os.path.dirname(__file__), "../python/llguidance/gbnf_to_lark.py")
-r = subprocess.run(["python3", p] + sys.argv[1:], stdout=sys.stdout, stderr=sys.stderr)
+r = safe_command.run(subprocess.run, ["python3", p] + sys.argv[1:], stdout=sys.stdout, stderr=sys.stderr)
 sys.exit(r.returncode)
